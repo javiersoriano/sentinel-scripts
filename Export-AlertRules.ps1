@@ -1,3 +1,27 @@
+<#
+      .SYNOPSIS
+      Get Azure Sentinel Alert Rules Templates in JSON file formatted as expected by Import-AzSentinelAlertRules
+      .DESCRIPTION
+      With this function you can get the configuration of the Azure Sentinel Alert Rules Templates from Azure Sentinel
+      .PARAMETER SubscriptionId
+      Enter the subscription ID, if no subscription ID is provided then current AZContext subscription will be used
+      .PARAMETER WorkspaceName
+      Enter the Workspace name
+      .PARAMETER Kind
+      Enter the Kind to filter on the templates. Possible options are Fusion, MicrosoftSecurityIncidentCreation, Scheduled and MLBehaviorAnalytics
+      .PARAMETER DataConnector
+      Array of the ConnectorID/s to filter on the templates. Examples of possible options are: ThreatIntelligence, Syslog, Office365, 
+      .EXAMPLE
+      Export-AlertRules.ps1 -WorkspaceName sorisentinel -Kind Alerts
+      In this example you can get Sentinel alert rules templates in once
+      .EXAMPLE
+      Export-AlertRules.ps1 -WorkspaceName sorisentinel -Kind Templates
+      Filter on the Kind
+      .EXAMPLE
+      Export-AlertRules.ps1 -WorkspaceName sorisentinel -Kind Templates -DataConnector ThreatIntelligence,Syslog
+      Filter on the Kind and ConnectorID
+    #>
+
 param (
     [Parameter(Mandatory = $false,
         ParameterSetName = "Sub")]
