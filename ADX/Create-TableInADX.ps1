@@ -1,5 +1,5 @@
 PARAM(
-    [Parameter(Mandatory=$true)]$TableName, # The log lanlyics table you wish to convert to external table
+    [Parameter(Mandatory=$true)]$TableName, # The log lanlyics table you wish to have in ADX
     [Parameter(Mandatory=$true)]$WorkspaceId # The log lanlyics WorkspaceId
 )
 
@@ -12,7 +12,6 @@ $TableRaw = $TableName + 'Raw'
 $RawMapping = $TableRaw + 'Mapping'
 
 $FirstCommand = @()
-$SecondCommand = @()
 $ThirdCommand = @()
 
 foreach ($record in $output) {
@@ -23,9 +22,7 @@ foreach ($record in $output) {
         $dataType = 'string'
         $ThirdCommand += $record.ColumnName + " = tostring(events." + $record.ColumnName + "),"
     }
-    $FirstCommand += $record.ColumnName + ":" + "$dataType" + ","
-    #$SecondCommand += "{`"column`":" + "`"" + $record.ColumnName + "`"," + "`"datatype`":`"$dataType`",`"path`":`"$." + $record.ColumnName + "`"},"
-    
+    $FirstCommand += $record.ColumnName + ":" + "$dataType" + ","    
 }
 
 $schema = ($FirstCommand -join '') -replace ',$'
