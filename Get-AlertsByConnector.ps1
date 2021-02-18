@@ -1,21 +1,21 @@
 $data = @()
-$data += 'Kind,Display Name,Connector'
+$data += 'Kind,Display Name,Connector,Tactics'
 
-$alertTemplates = Get-AzSentinelAlertRuleTemplates -WorkspaceName cxe-javier
+$alertTemplates = Get-AzSentinelAlertRuleTemplates -WorkspaceName sorisentinel
 
 foreach ($item in $alertTemplates) {
+    Write-Host "Processing rule template "+ $item.displayName
+    $connectors = ""
+    foreach ($conn in $item.requiredDataConnectors){
+        $connectors += $conn.connectorId+" | "
+    }
 
-    foreach ($conn in $item.properties.requiredDataConnectors){
-        #Write-Host "Processing connector: " $conn.connectorId
-    
-        $data += $item.kind+','+$item.properties.displayName+','+$conn.connectorId
-        #Write-Host $data
-        Write-Host $item.properties.displayName
-    }    
+    $data += $item.kind+','+$item.displayName+','+$connectors+','+$item.Tactics
+     
 }
 
 Write-Host "Done!"
 
-Write-Host $data
+$date = Get-Date -Format HHmmss_ddMMyyyy
 
-$data > AnalyticsRulesTemplates.csv
+$data > "AnalyticsRulesTemplates_$date.csv"
