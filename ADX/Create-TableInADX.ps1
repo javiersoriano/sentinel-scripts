@@ -60,7 +60,7 @@ $CreatePolicyUpdate = @'
 .alter table {0} policy update @'[{{"Source": "{1}", "Query": "{2}()", "IsEnabled": "True", "IsTransactional": true}}]'
 '@ -f $TableName, $TableRaw, $TableExpandFunction
 
-Write-Host -ForegroundColor Red 'Copy and run the following commands (one by one), on your Azure Data Explorer cluster query window to create the external table and mappings:'
+Write-Host -ForegroundColor Red 'Copy and run the following commands (one by one), on your Azure Data Explorer cluster query window to create the table, mappings and update policy:'
 Write-Host -ForegroundColor Green $CreateRawTable
 Write-Host `r
 Write-Host -ForegroundColor Green $CreateRawMapping
