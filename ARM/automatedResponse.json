@@ -1,0 +1,23 @@
+{
+    "requests": [
+        {
+            "content": {
+                "id": "/subscriptions/1c61ccbf-70b3-45a3-a1fb-848ce46d70a6/resourceGroups/cxejavier/providers/Microsoft.OperationalInsights/workspaces/cxejavier/providers/Microsoft.SecurityInsights/alertRules/d1ac7829-cbac-448c-a5ba-bbada47b266e/actions/564568c0-4a52-47b3-b5bc-fbc88911c720",
+                "name": "564568c0-4a52-47b3-b5bc-fbc88911c720",
+                "type": "Microsoft.SecurityInsights/alertRules/actions",
+                "properties": {
+                    "ruleId": "/subscriptions/1c61ccbf-70b3-45a3-a1fb-848ce46d70a6/resourceGroups/cxejavier/providers/Microsoft.OperationalInsights/workspaces/cxejavier/providers/Microsoft.SecurityInsights/alertRules/d1ac7829-cbac-448c-a5ba-bbada47b266e",
+                    "triggerUri": "https://prod-111.westeurope.logic.azure.com:443/workflows/66c97de0eb6f40d9b507b34d6429b3f6/triggers/When_a_response_to_an_Azure_Sentinel_alert_is_triggered/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2FWhen_a_response_to_an_Azure_Sentinel_alert_is_triggered%2Frun&sv=1.0&sig=a3WpdWNb0ial3fvrsC2ybrA5JGrmMIxZd7IIjbxT0Fg",
+                    "logicAppResourceId": "/subscriptions/8f153238-e602-427e-a7c0-3043fbe50918/resourceGroups/SentinelDemo/providers/Microsoft.Logic/workflows/GetIpLocation",
+                    "operatesOn": "Alert"
+                }
+            },
+            "httpMethod": "PUT",
+            "name": "da3bc8ed-e40b-41d6-a8a4-af54b54730ce",
+            "requestHeaderDetails": {
+                "commandName": "Microsoft_Azure_Security_Insights."
+            },
+            "url": "https://management.azure.com/subscriptions/1c61ccbf-70b3-45a3-a1fb-848ce46d70a6/resourceGroups/cxejavier/providers/Microsoft.OperationalInsights/workspaces/cxejavier/providers/Microsoft.SecurityInsights/alertRules/d1ac7829-cbac-448c-a5ba-bbada47b266e/actions/564568c0-4a52-47b3-b5bc-fbc88911c720?api-version=2019-01-01-preview"
+        }
+    ]
+}

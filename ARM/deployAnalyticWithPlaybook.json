@@ -1,0 +1,101 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string"
+        },
+        "alertName": {
+            "type": "string",
+            "defaultValue": "[newGuid()]"
+        },
+        "actionName": {
+            "type": "string",
+            "defaultValue": "[newGuid()]"
+        },
+        "playbookName": {
+            "type": "string"
+        },
+        "playbookRg": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]"
+        },
+        "triggerUri": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "ruleGuid": "[uniqueString(parameters('alertName'))]",
+        "actionGuid": "[uniqueString(parameters('actionName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('ruleGuid'))]",
+            "apiVersion": "2021-03-01-preview",
+            "kind": "Scheduled",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "displayName": "Sign-ins from IPs that attempt sign-ins to disabled accounts",
+                "description": "Identifies IPs with failed attempts to sign in to one or more disabled accounts signed in successfully to another account.\nReferences: https://docs.microsoft.com/azure/active-directory/reports-monitoring/reference-sign-ins-error-codes\n50057 - User account is disabled. The account has been disabled by an administrator.",
+                "severity": "Medium",
+                "enabled": true,
+                "query": "Usage | take 2",
+                "queryFrequency": "PT5M",
+                "queryPeriod": "PT30M",
+                "triggerOperator": "GreaterThan",
+                "triggerThreshold": 0,
+                "suppressionDuration": "PT5H",
+                "suppressionEnabled": false,
+                "tactics": [
+                    "InitialAccess",
+                    "Persistence"
+                ],
+                "alertRuleTemplateName": "500c103a-0319-4d56-8e99-3cec8d860757",
+                "incidentConfiguration": {
+                    "createIncident": true,
+                    "groupingConfiguration": {
+                        "enabled": true,
+                        "reopenClosedIncident": false,
+                        "lookbackDuration": "PT5H",
+                        "matchingMethod": "AllEntities",
+                        "groupByEntities": [
+                            "Host"
+                        ],
+                        "groupByAlertDetails": [],
+                        "groupByCustomDetails": []
+                    }
+                },
+                "eventGroupingSettings": {
+                    "aggregationKind": "SingleAlert"
+                },
+                "alertDetailsOverride": null,
+                "customDetails": null,
+                "entityMappings": [
+                    {
+                        "entityType": "Host",
+                        "fieldMappings": [
+                            {
+                                "identifier": "HostName",
+                                "columnName": "Computer"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules/actions",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('ruleGuid'),'/',variables('actionGuid'))]",
+            "apiVersion": "2020-01-01",
+            "dependsOn":[
+                "[resourceId('Microsoft.OperationalInsights/workspaces/providers/alertRules', parameters('workspaceName'), 'Microsoft.SecurityInsights', variables('ruleGuid'))]"
+            ],
+            "properties": {
+                "triggerUri": "[parameters('triggerUri')]",
+                "logicAppResourceId": "[resourceId(parameters('playbookRg'),'Microsoft.Logic/workflows',parameters('playbookName'))]"
+            }
+        }
+    ],
+    "outputs": {}
+}

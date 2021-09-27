@@ -1,0 +1,119 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string"
+        },
+        "automationRuleName": {
+            "type": "string"
+        },
+        "ruleGuid": {
+            "type": "string"
+        },
+        "automationRulePlaybookName": {
+            "type": "string"
+        },
+        "playbookRG": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]"
+        }
+    },
+    "variables": {
+        "automationRuleGuid": "[uniqueString(parameters('automationRuleName'))]"    
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/automationRules",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('automationRuleGuid'))]",
+            "apiVersion": "2019-01-01-preview",
+            "properties": {
+                "displayName": "[parameters('automationRuleName')]",
+                "order": 2,
+                "triggeringLogic": {
+                    "isEnabled": true,
+                    "expirationTimeUtc": null,
+                    "triggersOn": "Incidents",
+                    "triggersWhen": "Created",
+                    "conditions": [
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentRelatedAnalyticRuleIds",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "[resourceId('Microsoft.OperationalInsights/workspaces/providers/alertRules',parameters('workspaceName'),'Microsoft.SecurityInsights',parameters('ruleGuid'))]"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentSeverity",
+                                    "operator": "Equals",
+                                    "propertyValues": [
+                                        "High"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentTactics",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "InitialAccess",
+                                        "Execution"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentTitle",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "urgent"
+                                    ]
+                                }
+                            }
+
+
+                    ]
+                },
+                "actions": [
+                    {
+                        "order": 1,
+                        "actionType": "RunPlaybook",
+                        "actionConfiguration": {
+                            "triggerUri": null,
+                            "logicAppResourceId": "[resourceId(parameters('playbookRG'),'Microsoft.Logic/workflows',parameters('automationRulePlaybookName'))]",
+                            "tenantId": "[subscription().tenantId]"
+                        }
+                    },
+                    {
+                        "order": 2,
+                        "actionType": "ModifyProperties",
+                        "actionConfiguration": {
+                            "status": "Closed",
+                            "classification": "Undetermined",
+                            "classificationReason": null
+                        }
+                    },
+                    {
+                        "order": 3, 
+                        "actionType": "ModifyProperties", 
+                        "actionConfiguration": {
+                            "labels": [
+                                {
+                                    "labelName": "tag"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}

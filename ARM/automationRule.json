@@ -1,0 +1,88 @@
+{
+    "requests": [
+        {
+            "content": {
+                "etag": "\"fa0025b8-0000-0d00-0000-6149ce680000\"",
+                "properties": {
+                    "displayName": "test",
+                    "order": 3,
+                    "triggeringLogic": {
+                        "isEnabled": true,
+                        "expirationTimeUtc": "2021-09-29T22:00:00.000Z",
+                        "triggersOn": "Incidents",
+                        "triggersWhen": "Created",
+                        "conditions": [
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentRelatedAnalyticRuleIds",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "/subscriptions/1186543f-81e7-4a2c-ad55-fae1cc1c9eac/resourceGroups/sentinel/providers/Microsoft.OperationalInsights/workspaces/sorisentinel/providers/Microsoft.SecurityInsights/alertRules/2483f2b7-8e3d-47fb-9fb5-0706c0019e42"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentSeverity",
+                                    "operator": "Equals",
+                                    "propertyValues": [
+                                        "High"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentTactics",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "InitialAccess",
+                                        "Execution"
+                                    ]
+                                }
+                            },
+                            {
+                                "conditionType": "Property",
+                                "conditionProperties": {
+                                    "propertyName": "IncidentTitle",
+                                    "operator": "Contains",
+                                    "propertyValues": [
+                                        "urgent"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "order": 1,
+                            "actionType": "ModifyProperties",
+                            "actionConfiguration": {
+                                "status": "Active",
+                                "classification": null,
+                                "classificationReason": null,
+                                "classificationComment": null
+                            }
+                        },
+                        {
+                            "order": 2,
+                            "actionType": "RunPlaybook",
+                            "actionConfiguration": {
+                                "logicAppResourceId": "/subscriptions/1186543f-81e7-4a2c-ad55-fae1cc1c9eac/resourceGroups/automationTests/providers/Microsoft.Logic/workflows/automationTest",
+                                "tenantId": "d8b292aa-55c3-432b-a101-6a4fe6568ecb"
+                            }
+                        }
+                    ]
+                }
+            },
+            "httpMethod": "PUT",
+            "name": "380c02c5-1243-4fdc-baef-aa6a35a620bd",
+            "requestHeaderDetails": {
+                "commandName": "Microsoft_Azure_Security_Insights."
+            },
+            "url": "https://management.azure.com/subscriptions/1186543f-81e7-4a2c-ad55-fae1cc1c9eac/resourceGroups/sentinel/providers/Microsoft.OperationalInsights/workspaces/sorisentinel/providers/Microsoft.SecurityInsights/automationRules/fe89cef9-913e-4f33-ad8b-9506e819af76?api-version=2019-01-01-preview"
+        }
+    ]
+}

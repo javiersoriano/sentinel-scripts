@@ -1,0 +1,134 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string"
+        },
+        "alertName": {
+            "type": "string",
+            "defaultValue": "[newGuid()]"
+        },
+        "automationRule": {
+            "type": "string",
+            "defaultValue": "[newGuid()]"
+        },
+        "automationRulePlaybookName": {
+            "type": "string"
+        },
+        "playbookRG": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]"
+        }
+    },
+    "variables": {
+        "ruleGuid": "[uniqueString(parameters('alertName'))]",
+        "automationRuleGuid": "[uniqueString(parameters('automationRule'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('ruleGuid'))]",
+            "apiVersion": "2021-03-01-preview",
+            "kind": "Scheduled",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "displayName": "Sign-ins from IPs that attempt sign-ins to disabled accounts",
+                "description": "Identifies IPs with failed attempts to sign in to one or more disabled accounts signed in successfully to another account.\nReferences: https://docs.microsoft.com/azure/active-directory/reports-monitoring/reference-sign-ins-error-codes\n50057 - User account is disabled. The account has been disabled by an administrator.",
+                "severity": "Medium",
+                "enabled": true,
+                "query": "Usage | take 2",
+                "queryFrequency": "PT5M",
+                "queryPeriod": "PT30M",
+                "triggerOperator": "GreaterThan",
+                "triggerThreshold": 0,
+                "suppressionDuration": "PT5H",
+                "suppressionEnabled": false,
+                "tactics": [
+                    "InitialAccess",
+                    "Persistence"
+                ],
+                "alertRuleTemplateName": "500c103a-0319-4d56-8e99-3cec8d860757",
+                "incidentConfiguration": {
+                    "createIncident": true,
+                    "groupingConfiguration": {
+                        "enabled": true,
+                        "reopenClosedIncident": false,
+                        "lookbackDuration": "PT5H",
+                        "matchingMethod": "AllEntities",
+                        "groupByEntities": [
+                            "Host"
+                        ],
+                        "groupByAlertDetails": [],
+                        "groupByCustomDetails": []
+                    }
+                },
+                "eventGroupingSettings": {
+                    "aggregationKind": "SingleAlert"
+                },
+                "alertDetailsOverride": null,
+                "customDetails": null,
+                "entityMappings": [
+                    {
+                        "entityType": "Host",
+                        "fieldMappings": [
+                            {
+                                "identifier": "HostName",
+                                "columnName": "Computer"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/automationRules",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('automationRuleGuid'))]",
+            "apiVersion": "2019-01-01-preview",
+            "properties": {
+                "displayName": "test3",
+                "order": 2,
+                "triggeringLogic": {
+                    "isEnabled": true,
+                    "expirationTimeUtc": null,
+                    "triggersOn": "Incidents",
+                    "triggersWhen": "Created",
+                    "conditions": [
+                        {
+                            "conditionType": "Property",
+                            "conditionProperties": {
+                                "propertyName": "IncidentRelatedAnalyticRuleIds",
+                                "operator": "Contains",
+                                "propertyValues": [
+                                    "[resourceId('Microsoft.OperationalInsights/workspaces/providers/alertRules',parameters('workspaceName'),'Microsoft.SecurityInsights',variables('ruleGuid'))]"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "actions": [
+                    {
+                        "order": 1,
+                        "actionType": "RunPlaybook",
+                        "actionConfiguration": {
+                            "triggerUri": null,
+                            "logicAppResourceId": "[resourceId(parameters('playbookRG'),'Microsoft.Logic/workflows',parameters('automationRulePlaybookName'))]",
+                            "tenantId": "[subscription().tenantId]"
+                        }
+                    },
+                    {
+                        "order": 2,
+                        "actionType": "ModifyProperties",
+                        "actionConfiguration": {
+                            "status": "Closed",
+                            "classification": "Undetermined",
+                            "classificationReason": null
+                        }
+                    }
+                ]
+            }
+
+        }
+    ],
+    "outputs": {}
+}
