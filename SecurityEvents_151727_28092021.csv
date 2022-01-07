@@ -1,0 +1,51 @@
+Kind,Display Name,Connector,Query
+ADAccountLockouts.yaml, 4740
+Certutil-LOLBins.yaml,
+cscript_summary.yaml,-4688
+CustomUserList_FailedLogons.yaml,
+enumeration_user_and_group.yaml,-4688
+ExchangePowerShellSnapin.yaml, 4688
+FailedUserLogons.yaml, 4625
+GroupAddedToPrivlegeGroup.yaml,-"4728", "4732", "4756"
+HostExportingMailboxAndRemovingExport.yaml, 4688
+HostsWithNewLogons.yaml,-4624
+Invoke-PowerShellTcpOneLine.yaml, 4688
+Least_Common_Parent_Child_Process.yaml, 4688
+Least_Common_Process_Command_Lines.yaml, 4688
+Least_Common_Process_With_Depth.yaml, 4688
+masquerading_files.yaml,
+MultipleExplicitCredentialUsage4648Events.yaml, 4648
+new_processes.yaml,-4688
+NewChildProcessOfW3WP.yaml, 4688
+NishangReverseTCPShellBase64.yaml, 4688
+persistence_create_account.yaml,-4688
+PowerCatDownload.yaml, 4688
+powershell_downloads.yaml,-4688
+powershell_newencodedscipts.yaml,-4688
+ProcessEntropy.yaml, 4688
+RareProcbyServiceAccount.yaml, 4624
+RareProcess_forWinHost.yaml, 4688
+RareProcessPath.yaml,-4688
+RareProcessWithCmdLine.yaml, 4688
+SignedBinaryProxyExecutionRundll32.yaml,
+SuspectedLSASSDump.yaml, 4688
+Suspicious_enumeration_using_adfind.yaml, 4688
+Suspicious_Windows_Login_outside_normal_hours.yaml, 4624
+uncommon_processes.yaml,-4688
+User Logons By Logon Type.yaml,-4624, 4625
+UserAccountAddedToPrivlegeGroup.yaml,-"4728", "4732", "4756"
+UserAccountCreatedDeleted.yaml,
+UserAdd_RemToGroupByUnauthorizedUser.yaml,-4728, 4729, 4732, 4733, 4746, 4747, 4751, 4752, 4756, 4757, 4761, 4762
+UserCreatedByUnauthorizedUser.yaml, 4720
+VIPAccountFailedLogons.yaml,
+WindowsSystemShutdown-Reboot.yaml,
+WindowsSystemTimeChange.yaml, 4616
+FirewallRuleChanges_using_netsh.yaml,
+LogonwithExpiredAccount.yaml, 4625
+PersistViaIFEORegistryKey.yaml, 4657
+PotentialMicrosoftSecurityServicesTampering.yaml, 4688
+ReconActivitywithInteractiveLogonCorrelation.yaml, 4624
+SolarWindsInventory.yaml,- '4688'
+TrackingPasswordChanges.yaml,-4723,4724
+TrackingPrivAccounts.yaml, 7045
+UnicodeObfuscationInCommandLine.yaml,

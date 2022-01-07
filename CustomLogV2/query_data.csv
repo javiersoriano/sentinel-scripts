@@ -1,0 +1,25 @@
+﻿TenantId,SourceSystem,TimeGenerated [UTC],ResourceId,OperationName,OperationVersion,Category,ResultType,ResultSignature,ResultDescription,DurationMs,CorrelationId,Resource,ResourceGroup,ResourceProvider,Identity,Level,Location,AlternateSignInName,AppDisplayName,AppId,AuthenticationDetails,AuthenticationMethodsUsed,AuthenticationProcessingDetails,AuthenticationRequirement,AuthenticationRequirementPolicies,ClientAppUsed,ConditionalAccessPolicies,ConditionalAccessStatus,CreatedDateTime [UTC],DeviceDetail,IsInteractive,Id,IPAddress,IsRisky,LocationDetails,MfaDetail,NetworkLocationDetails,OriginalRequestId,ProcessingTimeInMilliseconds,RiskDetail,RiskEventTypes,RiskEventTypes_V2,RiskLevelAggregated,RiskLevelDuringSignIn,RiskState,ResourceDisplayName,ResourceIdentity,ServicePrincipalId,ServicePrincipalName,Status,TokenIssuerName,TokenIssuerType,UserAgent,UserDisplayName,UserId,UserPrincipalName,AADTenantId,UserType,FlaggedForReview,IPAddressFromResourceProvider,SignInIdentifier,SignInIdentifierType,ResourceTenantId,HomeTenantId,Galaxy_CF,Type
+2a3c5b4c-de04-4bef-ab17-e09475a00d86,Azure AD,"11/24/2021, 5:47:22.999 AM",/tenants/5f1060f2-d9a4-4f59-bf9c-1dd8f3604a4b/providers/Microsoft.aadiam,Sign-in activity,1,SignInLogs,0,None,,0,852a08c2-435e-4542-8b77-13289b2092b1,Microsoft.aadiam,Microsoft.aadiam,,On-Premises Directory Synchronization Service Account,4,US,Sync_ContosoDc_a8016d9ed6f4@buildseccxpninja.onmicrosoft.com,Microsoft Azure Active Directory Connect,cb1056e2-e479-49de-ae31-7812af012ed8,"[
+  {
+    ""authenticationStepDateTime"": ""2021-11-24T05:41:22.9318653+00:00"",
+    ""authenticationMethod"": ""Password"",
+    ""authenticationMethodDetail"": ""Password Hash Sync"",
+    ""succeeded"": true,
+    ""authenticationStepRequirement"": ""Primary authentication"",
+    ""StatusSequence"": 0,
+    ""RequestSequence"": 1
+  }
+]",,"[
+  {
+    ""key"": ""Legacy TLS (TLS 1.0, 1.2, 3DES)"",
+    ""value"": ""False""
+  },
+  {
+    ""key"": ""Oauth Scope Info"",
+    ""value"": ""[\""user_impersonation\""]""
+  },
+  {
+    ""key"": ""Is CAE Token"",
+    ""value"": ""False""
+  }
+]",singleFactorAuthentication,[],Mobile Apps and Desktop clients,"[{""enforcedSessionControls"":[],""conditionsNotSatisfied"":2,""enforcedGrantControls"":[""Mfa""],""conditionsSatisfied"":1,""displayName"":""MFA"",""result"":""notApplied"",""id"":""3142390b-7ec6-485a-b070-bb5cfc93005d""},{""enforcedSessionControls"":[""CloudAppSecurity""],""conditionsNotSatisfied"":1,""enforcedGrantControls"":[],""conditionsSatisfied"":0,""displayName"":""Sarahzin: Airlift Test MCAS CAAC"",""result"":""notApplied"",""id"":""009a2a41-4712-4d63-be23-f9f67ad382b9""},{""enforcedSessionControls"":[],""conditionsNotSatisfied"":1,""enforcedGrantControls"":[""Block""],""conditionsSatisfied"":0,""displayName"":""BlockAzureDevOps"",""result"":""notApplied"",""id"":""0e2b9202-3449-46ae-8759-7b2d99588330""},{""enforcedSessionControls"":[],""conditionsNotSatisfied"":0,""enforcedGrantControls"":[],""conditionsSatisfied"":0,""displayName"":""Jupyter-test"",""result"":""notEnabled"",""id"":""7f4417ec-3f8c-401e-a46a-383f6c0cf16e""},{""enforcedSessionControls"":[],""conditionsNotSatisfied"":0,""enforcedGrantControls"":[],""conditionsSatisfied"":0,""displayName"":""Jupyter-test-exclude"",""result"":""notEnabled"",""id"":""39a13a9c-6d53-4dad-991c-1eff126a44e8""}]",notApplied,"11/24/2021, 5:41:22.931 AM","{""operatingSystem"":""Windows 8"",""deviceId"":"""",""browser"":""Rich Client 5.2.2.0""}",TRUE,64e8302b-858c-4e46-a746-631800e5ee00,13.68.147.150,,"{""countryOrRegion"":""US"",""geoCoordinates"":{""longitude"":-78.17196655273438,""latitude"":38.73078155517578},""state"":""Virginia"",""city"":""Washington""}",,[],64e8302b-858c-4e46-a746-631800e5ee00,135,none,[],[],none,none,none,Windows Azure Active Directory,00000002-0000-0000-c000-000000000000,,,"{""errorCode"":0}",,AzureAD,,On-Premises Directory Synchronization Service Account,a82ec49c-dbb3-4398-baec-b45e9cd487a8,sync_contosodc_a8016d9ed6f4@buildseccxpninja.onmicrosoft.com,5f1060f2-d9a4-4f59-bf9c-1dd8f3604a4b,Member,,,Sync_ContosoDc_a8016d9ed6f4@buildseccxpninja.onmicrosoft.com,,5f1060f2-d9a4-4f59-bf9c-1dd8f3604a4b,5f1060f2-d9a4-4f59-bf9c-1dd8f3604a4b,United States,SigninLogs
