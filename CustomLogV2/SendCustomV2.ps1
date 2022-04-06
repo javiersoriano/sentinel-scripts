@@ -26,7 +26,7 @@ $bearerToken = (Invoke-RestMethod -Uri $uri -Method "Post" -Body $body -Headers 
 ### Step 2: load up some data... in this case, generate some static data to send
 ##################
 $currentTime = Get-Date ([datetime]::UtcNow) -Format O
-$staticData = @"
+$staticData1 = @"
 [
   {
     "timeDate": "$currentTime",
@@ -39,13 +39,30 @@ $staticData = @"
 ]
 "@;
 
+$staticData2 = @"
+[
+  {
+    "timeDate2": "$currentTime",
+    "operation2": "ThisIsATestOperationName"    
+  },
+  {
+    "timeDate2": "$currentTime",
+    "operation2": "ThisIsAnotherTestOperationName"
+  }
+]
+"@;
 
 
 ##################
 ### Step 3: send the data to Log Analytics via the DCR!
 ##################
-$body = $staticData;
+$body1 = $staticData1;
+$body2 = $staticData2;
 $headers = @{"Authorization"="Bearer $bearerToken";"Content-Type"="application/json"};
-$uri = "$dceEndpoint/v1/dataCollectionRules/$dcrImmutableId/streams/Custom-MyDataStream"
+$uri1 = "$dceEndpoint/v1/dataCollectionRules/$dcrImmutableId/streams/Custom-MyDataStream"
+$uri2 = "$dceEndpoint/v1/dataCollectionRules/$dcrImmutableId/streams/Custom-MyDataStream2"
 
-$uploadResponse = Invoke-RestMethod -Uri $uri -Method "Post" -Body $body -Headers $headers
+$uploadResponse1 = Invoke-RestMethod -Uri $uri1 -Method "Post" -Body $body1 -Headers $headers
+$uploadResponse2 = Invoke-RestMethod -Uri $uri2 -Method "Post" -Body $body2 -Headers $headers
+
+
