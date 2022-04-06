@@ -1,1 +1,4 @@
 FileName, CommitSha
+ARM\Workbooks\workbookRepositories.json,af430a98ef237110ba70e8fea37ff6c9849acc25
+ARM\AutomationRules\automationRuleRepositories.json,6adcf2161cc2da74332d8a6dc33af785183939e3
+ARM\Parsers\parserRepositories.json,6a8c1abfad2bf225ef1d00021ab65b02ba147753
