@@ -84,7 +84,7 @@
                         "actionConfiguration": {
                             "labels": [
                                 {
-                                    "labelName": "tag"
+                                    "labelName": "test"
                                 }
                             ]
                         }
