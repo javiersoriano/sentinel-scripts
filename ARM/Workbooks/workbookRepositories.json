@@ -9,7 +9,7 @@
       "type": "string",
       "defaultValue": "04SOC Dashboard",
       "metadata": {
-        "description": "friendly name."
+        "description": "friendly name test."
       }
     },
     "workbookType": {
